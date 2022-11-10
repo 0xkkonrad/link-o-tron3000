@@ -1,0 +1,29 @@
+{
+  "name": "link-o-tron3000",
+  "version": "1.0.0",
+  "description": "link o tron 3000",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/knrdrbn/link-o-tron3000.git"
+  },
+  "keywords": [
+    "tron",
+    "link"
+  ],
+  "author": "hugo0o0o0o0o0o0 and kkonrad",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/knrdrbn/link-o-tron3000/issues"
+  },
+  "homepage": "https://github.com/knrdrbn/link-o-tron3000#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.2.3"
+  },
+  "dependencies": {
+    "augmented-ui": "^2.0.0"
+  }
+}
