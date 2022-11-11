@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "/node_modules/augmented-ui/augmented-ui.min.css";
+
+
+
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+
+/* TABS ALPINE */
+
+.tabs {
+  border: 1px white;
+  border-style: none dashed none none;
+}
+
+.tabs.active {
+  position: relative;
+  z-index: 1;
+}
+
+.bg {
+    background: repeating-linear-gradient(
+      to top,
+      rgba(255, 255, 255, 0.03) 0px 2px,
+      transparent 2px 4px
+    ),
+    linear-gradient(to bottom, #200933 75%, #3d0b43);
+  }
+  .bg::after{
+    content:'';
+    height:50%;
+    width:100%;
+    display:block;
+    background-image:linear-gradient(90deg, rgba(252,25,154,.1) 1px, rgba(0,0,0,0) 1px), linear-gradient(0deg, rgba(252,25,154,.1) 1px, rgba(0,0,0,0) 1px);
+    background-position:bottom;
+    background-repeat:repeat;
+    background-size:20px 20px;
+    left: -25px;
+    position: absolute;
+    pointer-events: none;
+    bottom: 0;
+    transform: perspective(100px) rotateX(60deg);
+    z-index: 0;
+  }
+  
+
+.color-mouse {
+  background: hsl(var(--h), 100%, 30%);
+  z-index: -10;
+}
+
+.color-reverse {
+  color: hsl(var(--d), 100%, 30%);
+}
+
+.bg-color-reverse {
+  background: radial-gradient(
+      circle at 65% 35%,
+      hsla(var(--d), 100%, 30%, 0.5),
+      hsla(var(--h), 200%, 5%, 1)
+    ),
+    var(--noise);
+}
+
+.bg-color-firstthird {
+  background: radial-gradient(
+      circle at -20% 35%,
+      hsla(var(--firstthird), 100%, 30%, 0.5),
+      hsla(var(--h), 200%, 5%, 1)
+    ),
+    var(--noise);
+}
+
+.bg-color-secondthird {
+  background: radial-gradient(
+      circle at 120% 35%,
+      hsla(var(--secondthird), 100%, 30%, 0.5),
+      hsla(var(--h), 200%, 5%, 1)
+    ),
+    var(--noise);
+}
+
+.bg-color-splitcomplimentarity1 {
+  background: radial-gradient(
+      circle at 65% 35%,
+      hsla(var(--splitcomplimentarity1), 100%, 30%, 0.5),
+      hsla(var(--h), 200%, 5%, 1)
+    ),
+    var(--noise);
+}
+
+.bg-color-splitcomplimentarity2 {
+  background: radial-gradient(
+      circle at 65% 35%,
+      hsla(var(--splitcomplimentarity2), 100%, 30%, 0.5),
+      hsla(var(--h), 200%, 5%, 1)
+    ),
+    var(--noise);
+}
+
+.text-mouse-color {
+  background: radial-gradient(
+      circle at 65% 35%,
+      hsla(var(--h), 100%, 30%, 0.5),
+      hsla(var(--h), 200%, 5%, 1)
+    ),
+    var(--noise);
+}
+
+
+.typewriter h1 {
+  overflow: hidden;
+  border-right: 0.15em solid hsla(var(--h), 100%, 50%, 1);
+  white-space: nowrap;
+  letter-spacing: 0.15em;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+/* The typing effect. thanks geoffgraham!  */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 90%;
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: hsla(var(--h), 100%, 50%, 1);
+  }
+}
+
+
+
+.reticle {
+  --aug-all-width: 250px;
+  color: hsla(var(--h), 100%, 50%, 1);
+  --reticle-color: currentColor;
+  --reticle-size: calc(var(--aug-all-width) * 0.25);
+  transform-origin: 50% 56%;
+  transform: rotateZ(0deg);
+  transition: transform 0.75s ease-out, color 0.75s ease-out;
+}
+.reticle:hover {
+  transform: rotateZ(720deg);
+  color: hsla(var(--d), 100%, 50%, 1);
+}
+

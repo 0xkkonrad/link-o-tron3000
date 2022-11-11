@@ -32,35 +32,43 @@ add input fields for NFT SC address and NFT ID
   </style>
 </head>
 
-<body class="font-mono text-white bg">
+<body class="bg-black font-mono text-white">
 
-
-  <header class="items-center mx-auto w-1/2 m-6">
-
-    <div class="gap-4 text-center p-6 flex-col flex lg:flex-row" style="grid-template-columns: 1fr 1fr auto; ">
-
-      <div x-data @click="$store.activeTab = 0;"
-        data-augmented-ui="tl-2-clip-x tr-clip br-clip-y bl-2-clip-x both"
-        class="w-full lg:w-1/2 hover:shadow-none hover:translate-x-2 hover:translate-y-2 gap-4 p-12 text-3xl ">
-        stash
+  <div class="dotted-bg"></div>
+  <section class="ball-container">
+    <div class="ground">
+      <div class="ground-shadow"></div>
+    </div>
+    <div class="ball">
+      <div class="isolate">
+        <div class="ball-light"></div>
       </div>
+    </div>
+  </section>
 
-      <div x-data @click="$store.activeTab = 1;" data-augmented-ui="  tl-clip tr-2-clip-x br-2-clip-x bl-clip-y both"
-        class="w-full lg:w-1/2 hover:shadow-none hover:translate-x-2 hover:translate-y-2 gap-4 text-center p-12">
 
-        Fetch Optiomns
-      </div>
+  <header class="items-center mx-auto w-1/2 m-6 ">
+    <div class="gap-4 text-center p-6 flex-col flex lg:flex-row" style="grid-template-columns: 1fr 1fr auto;">
+      <button x-data @click="$store.activeTab = 0;"
+        class="p-4 bg-color-firstthird window w-full lg:w-1/2 hover:shadow-none window hover:translate-x-2 hover:translate-y-2 ">
+        Stash Options </button>
+      <button x-data @click="$store.activeTab = 1;"
+        class="window p-4 bg-color-secondthird w-full lg:w-1/2 hover:shadow-none window hover:translate-x-2 hover:translate-y-2 ">
+        Fetch Options
+      </button>
+
+
 
     </div>
+    
   </header>
 
 
   <div class="tab-wrapper m-6 lg:w-1/2 lg:mx-auto" x-data="{ activeTab:  1 }">
 
     <!-- STASH TAB (0) -->
-
-    <div class="p-6 bg-color-firstthird" data-augmented-ui="tl-clip tr-2-clip-y br-clip-x bl-rect-y both"
-      x-show=" $store.activeTab===0 && $store.depositSuccess===false && $store.withdrawSuccess===false" x-cloak>
+    <div class="window p-6 bg-color-firstthird"
+      x-show="$store.activeTab === 0 && $store.depositSuccess === false && $store.withdrawSuccess === false" x-cloak>
 
       <div class="typewriter glitch-letters">
         <h1 class="lg:text-3xl text-xl">Right to stash.</h1>
@@ -70,26 +78,24 @@ add input fields for NFT SC address and NFT ID
         Here, you can deposit crypto, and let your frens claim it later with a secret link.
         This is a fully decentralised and unstoppable app. No one can stop you from stashing your stuff. Be a cyber
         squirrel.
-
-
-
-
-
       </p>
 
 
       <div class="sm:w-1/2 mx-auto flex flex-row">
-        <div class="relative mr-4 flex-grow" data-augmented-ui="tl-clip tr-2-clip br-clip both">
+        <div class="relative window shadow-none p-2 mr-4 flex-grow">
           <!-- x-model="$store.depositAmount" -->
           <input type="number" name="depositAmount" id="depositAmount" step="any"
-            class="px-6 p-6 block bg-black w-full border-gray focus:border-solid sm:text-xl" placeholder="0.00000">
+            class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm" placeholder="0.00000">
         </div>
-        <div class="relative p-2 text-xl" data-augmented-ui="tl-clip tr-2-clip br-clip both">
-          <select class="border-transparent bg-transparent pt-4 pl-2 pr-7" x-model:value="$store.gChain">
+        <div class="relative window shadow-none p-2 ">
+          <select class="border-transparent bg-transparent py-0 pl-2 pr-7" x-model:value="$store.gChain">
             <option class="bg-black" value="goerli">Goerli</option>
             <option class="bg-black" value="optimism">Optimism</option>
             <option class="bg-black" value="polygon-main">Polygon</option>
             <option class="bg-black" value="moonbeam">Moonbeam</option>
+            <!-- <option class="bg-black" value="eth-main">Ethereum</option> -->
+            <!-- <option class="bg-black">Peanuts</option> -->
+            <!-- x-model="Alpine.store('gChain')" -->
           </select>
         </div>
 
@@ -129,13 +135,6 @@ add input fields for NFT SC address and NFT ID
           class="text-3xl p-4 m-2 px-4 bg-color-secondthird hover:shadow-none window w-full sm:w-1/3 hover:translate-x-2 hover:translate-y-2 "
           @click="deposit();">
           Stash </button>
-
-
-        <div data-augmented-ui="all-hexangle-up border" class="reticle mx-auto align-middle">
-          <div class="align-middle my-auto center-xy"> TEST</div>
-        </div>
-        <div class="mx-auto h-24 w-24 rounded-full -translate-y-24"></div>
-
       </div>
     </div>
 
@@ -179,7 +178,9 @@ add input fields for NFT SC address and NFT ID
     <div class="window p-6 bg-color-secondthird"
       x-show="$store.activeTab === 1 && $store.depositSuccess === false && $store.withdrawSuccess === false" x-cloak
       x-init="if (window.location.href.indexOf('?') > -1) { $store.activeTab = 1;  console.log('url params found'); }">
+      <div class="typewriter glitch-letters">
         <h1 class="lg:text-3xl text-xl">Right to fetch.</h1>
+      </div>
       <p class="mb-4 text-3xl">
         Being a cyber squirrel is a right.
         Fetch stashed crypto at any time with your secret link:
@@ -243,7 +244,9 @@ add input fields for NFT SC address and NFT ID
     <!-- FETCH SUCCESS TAB -->
 
     <div class="window p-6 bg-color-firstthird" x-cloak x-show="$store.withdrawSuccess">
+      <div class="typewriter glitch-letters">
         <h1 class="lg:text-3xl text-xl">fetch confirmed</h1>
+      </div>
       <p class="mb-4 text-xl">
         You dug up your stash and retrieved your funds. You are a cyber squirrel. You feel empowered. They can't
         sanction you.
@@ -320,13 +323,12 @@ add input fields for NFT SC address and NFT ID
 
     </div>
   </div>
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
   <script>
     document.addEventListener('alpine:init', () => {
       Alpine.store('activeTab', 0)
     })
   </script>
-
   <script>
     console.log(
       "%cСлава  %cУкраїні",
@@ -337,7 +339,7 @@ add input fields for NFT SC address and NFT ID
 
   <!-- Javascript stuff -->
   <script defer src="morph.js"></script>
-
+  <script defer src="alpinejs@3.x.x.cdn.min.js"></script>
   <script defer src="ethers-5.2.umd.min.js"></script>
   <script defer src="colors.js"></script>
   <script defer src="crypto.js"></script>
