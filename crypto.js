@@ -47,10 +47,10 @@ Alpine.store("contractAddress", contract_addresses[Alpine.store("gChain")]);
 Alpine.store("contractAbi", contractAbi); // defined in abi.js
 
 // deposit
-Alpine.store("depositButtonText", 'Stash');
+Alpine.store("depositButtonText", 'Send');
 
 // withdraw
-Alpine.store("withdrawButtonText", 'Fetch');
+Alpine.store("withdrawButtonText", 'Claim');
 
 // deposit Success
 Alpine.store("depositSuccess", false);
@@ -179,7 +179,7 @@ async function deposit() {
   // call payable contrct function
   // depositEther(bytes32 _hashedPassword, uint256 _unlockDepositAmount)
   try {
-    // Alpine.store('depositButtonText', 'Stashing...');
+    // Alpine.store('depositButtonText', 'Sending...');
     Alpine.store('depositButtonText', LOADING);
     // var hashedPassword = ethers.utils.keccak256(depositPassword);
     var hashedPassword = ethers.utils.id(depositPassword);
@@ -250,7 +250,7 @@ async function withdrawEtherPassword() {
   // call openEtherDepositWindow(uint256 _depositIdx) public payable {
 
   console.log(
-    "%c fetch squirrel has been called",
+    "%c claim linkotron has been called",
     "font-size: 20px; background-color: purple; color: white;"
   );
 
@@ -294,7 +294,7 @@ async function withdrawEtherPassword() {
   // call payable contract function to lock the deposit
   // openEtherDepositWindow(uint256 _depositIdx)
   try {
-    // Alpine.store('fetchButtonText', 'Fetching...');
+    // Alpine.store('fetchButtonText', 'Claiming...');
     Alpine.store('fetchButtonText', LOADING);
     value = ethers.utils.parseEther(unlockDepositAmount);
     var tx = await contract.openEtherDepositWindow(depositIdx, {
@@ -331,9 +331,9 @@ async function withdrawEtherPassword() {
     console.log(error);
     // set processingTransaction to false
     Alpine.store("processingTransaction", false);
-    Alpine.store("withdrawButtonText", "Fetch");
+    Alpine.store("withdrawButtonText", "Claim");
     // display error message
-    alert("Fetch failed");
+    alert("Claiming failed");
     return;
   }
 }
