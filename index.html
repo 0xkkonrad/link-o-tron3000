@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title> Link-O-Tron 3000 </title>
   <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐿️</text></svg>">
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 
 
   <link rel="stylesheet" href="node_modules/augmented-ui/augmented-ui.min.css">
@@ -102,10 +102,8 @@
           </div>
           <div class="relative p-2 text-xl" data-augmented-ui="tl-clip tr-2-clip br-clip both">
             <select class="border-transparent bg-transparent pt-4 pl-2 pr-7" x-model:value="$store.gChain">
-              <option class="bg-black" value="goerli">Goerli</option>
-              <option class="bg-black" value="optimism">Optimism</option>
-              <option class="bg-black" value="polygon-main">Polygon</option>
-              <option class="bg-black" value="moonbeam">Moonbeam</option>
+              <option class="bg-black" value="tron">TRON Mainnet</option>
+              <option class="bg-black" value="shasta">TRON Shasta</option>
             </select>
           </div>
 
@@ -341,19 +339,10 @@
               <span class="font-black text-lg"> > Can I build on this? <br></span>
               <span> >>> Yes, it's all unlicensed and the few bits of js and css we used are MIT or unlicensed. Let us
                 know what thoughts you have!<br></span>
-              <span class="font-black text-lg"> > Is it safe? <br></span>
-              <span> >>> We don't know but we hope so. Try attacking it and let us know! <br></span>
               <span class="font-black text-lg"> > Show me the contracts <br></span>
-              <!-- @hugo SC links here -->
               <span> >>> Sure!
-                <a href="https://goerli.etherscan.io/address/0x2e0092bee1ff5902278d64d4e760920c6fd10974"
-                  target="_blank">Goerli</a>,
-                <a href="https://polygonscan.com/address/0xc5a2a997b6d370383b2fa1254939dba2a73aba8c"
-                  target="_blank">Polygon</a>,
-                <a href="https://optimistic.etherscan.io/address/0x8d1a17a3a4504aeb17515645ba8098f1d75237f7"
-                  target="_blank">Optimism</a>,
-                <a href="https://moonscan.io/address/0x897F8EDdB345F0d16081615823F76055Ad60A00c"
-                  target="_blank">Moonbeam</a>
+                <a href="https://tronscan.org/#/address/TFuxvZ1ucftuWWJrcqyiYRANDXVLYAutu2/permissions"
+                  target="_blank">TRON</a>,
               </span>
           </p>
         </div>
@@ -389,9 +378,8 @@
 
   <script>
     console.log(
-      "%cСлава  %cУкраїні",
-      "font-size: 20px; background-color: yellow; color: blue;",
-      "font-size: 20px; background-color: blue; color: yellow"
+      "%c  TRON  ",
+      "font-size: 80px; background-color: blue; color: red;",
     );
   </script>
 
