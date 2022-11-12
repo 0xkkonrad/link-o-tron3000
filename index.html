@@ -88,106 +88,106 @@ add input fields for NFT SC address and NFT ID
       <p class="mb-4 text-xl">
         Tron-O-Links are a new crypto primitive. They are a way to send and receive crypto assets using passwords.
 
-        <ol class="mb-4 text-xl">
-          <li>> Send tron without knowing someone's wallet address</li>
-          <li>> They can claim the Tron-O-Link by entering the password</li>
-          <li>> They will receive the crypto asset</li>
-         
-        </ol>
+      <ol class="mb-4 text-xl">
+        <li>> Send tron without knowing someone's wallet address</li>
+        <li>> They can claim the Tron-O-Link by entering the password</li>
+        <li>> They will receive the crypto asset</li>
 
-        <ol class="mb-4 text-xl">
-          <li> 1. Send Tron to Link-O-Tron 3000. </li>
-          <li> 2. Receive a secret link with a unique ID. </li>
-          <li> 3. Send the secret link to a friend </li>
-          <li> 4. Your friend can claim the Tron by clicking the link </li>
-        </ol>
-        </p>
+      </ol>
+
+      <ol class="mb-4 text-xl">
+        <li> 1. Send Tron to Link-O-Tron 3000. </li>
+        <li> 2. Receive a secret link with a unique ID. </li>
+        <li> 3. Send the secret link to a friend </li>
+        <li> 4. Your friend can claim the Tron by clicking the link </li>
+      </ol>
+      </p>
 
 
-        <div class="sm:w-1/2 mx-auto flex flex-row">
-          <div class="relative mr-4 flex-grow" data-augmented-ui="tl-clip tr-2-clip br-clip both">
-            <!-- x-model="$store.depositAmount" -->
-            <input type="number" name="depositAmount" id="depositAmount" step="any"
-              class="px-6 p-6 block bg-black w-full border-gray focus:border-solid sm:text-xl" placeholder="0.00000">
-          </div>
-          <div class="relative p-2 text-xl" data-augmented-ui="tl-clip tr-2-clip br-clip both">
-            <select class="border-transparent bg-transparent pt-4 pl-2 pr-7" x-model:value="$store.gChain">
-              <option class="bg-black" value="goerli">Goerli</option>
-              <option class="bg-black" value="optimism">Optimism</option>
-              <option class="bg-black" value="polygon-main">Polygon</option>
-              <option class="bg-black" value="moonbeam">Moonbeam</option>
-            </select>
-          </div>
-
+      <div class="sm:w-1/2 mx-auto flex flex-row">
+        <div class="relative mr-4 flex-grow" data-augmented-ui="tl-clip tr-2-clip br-clip both">
+          <!-- x-model="$store.depositAmount" -->
+          <input type="number" name="depositAmount" id="depositAmount" step="any"
+            class="px-6 p-6 block bg-black w-full border-gray focus:border-solid sm:text-xl" placeholder="0.00000">
+        </div>
+        <div class="relative p-2 text-xl" data-augmented-ui="tl-clip tr-2-clip br-clip both">
+          <select class="border-transparent bg-transparent pt-4 pl-2 pr-7" x-model:value="$store.gChain">
+            <option class="bg-black" value="goerli">Goerli</option>
+            <option class="bg-black" value="optimism">Optimism</option>
+            <option class="bg-black" value="polygon-main">Polygon</option>
+            <option class="bg-black" value="moonbeam">Moonbeam</option>
+          </select>
         </div>
 
-        <!-- advanced options on click -->
-        <div class="flex justify-center min-w-full" x-data="{ showAdvanced: false }">
-          <button type="button" class="text-sm text-gray-500 hover:text-gray-400 mt-2"
-            @click="showAdvanced = !showAdvanced" x-show="!showAdvanced">
-            Advanced options & Info</button>
-          <div x-show="showAdvanced" class="flex flex-col min-w-full" x-cloak>
+      </div>
 
-            <div class="sm:w-1/2 mx-auto mt-2">
-              <div class="relative window shadow-none p-2 w-full">
-                <!-- x-model="$store.depositPassword" -->
-                <input type="text" name="depositPassword" id="depositPassword"
-                  class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
-                  placeholder="super secret password">
-              </div>
+      <!-- advanced options on click -->
+      <div class="flex justify-center min-w-full" x-data="{ showAdvanced: false }">
+        <button type="button" class="text-sm text-gray-500 hover:text-gray-400 mt-2"
+          @click="showAdvanced = !showAdvanced" x-show="!showAdvanced">
+          Advanced options & Info</button>
+        <div x-show="showAdvanced" class="flex flex-col min-w-full" x-cloak>
+
+          <div class="sm:w-1/2 mx-auto mt-2">
+            <div class="relative window shadow-none p-2 w-full">
+              <!-- x-model="$store.depositPassword" -->
+              <input type="text" name="depositPassword" id="depositPassword"
+                class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
+                placeholder="super secret password">
             </div>
-
-            <div class="sm:w-1/2 mx-auto mt-2">
-              <div class="relative window shadow-none p-2 w-full">
-                <!-- x-model="$store.depositPassword" -->
-                <input type="number" name="unlockDepositAmount" id="unlockDepositAmount" step="any"
-                  class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
-                  placeholder="window lock deposit">
-              </div>
-            </div>
-
-
-
-            <div class="flex justify-center min-w-full mb-12">
-              <div class="flex flex-col min-w-full " x-cloak>
-                <span class="text-sm text-gray-500 hover:text-gray-400 mt-2">
-                  Set your own passphrase for claiming the funds. This can by anything, a password or maybe the correct
-                  answer to a puzzle.
-                  <br> <br>
-                  Use the lock deposit amount to require a deposit before someone attempts claim the funds. <br>
-                  Link-O-Tron uses a commit-reveal scheme to prevent frontrunning.
-                  <ul>
-                    <li>1. The claimer says "I know the password"</li>
-                    <li>2. The smart contract locks all interactions to the claimer only for some time. </li>
-                    <li>3. The claimer reveals the password.</li>
-                    <li>4. The smart contract makes a transaction to the sender with the funds.</li>
-                  </ul>
-                  <br>
-                  One possible attack is a DoS attack where someone does step 1 without ever doing 3. Such an attack
-                  costs
-                  gas and there is nothing to win directly. However, it could cause damage, if someone relies on the
-                  transaction to go through. This field lets you set a deposit amount for step 1, and if the password is
-                  not revealed, the claimer loses the deposit. This makes such DoS much more costly.<br>
-
-                </span>
-              </div>
-            </div>
-
-
-            <!-- hidden input: current chain -->
-            <input type="hidden" name="gChain" id="gChain" x-model="$store.gChain">
           </div>
-        </div>
-        <div class="grid-cols-2 mt-4 w-full text-center">
 
-
-
-          <div @click="deposit();" data-augmented-ui="all-hexangle-up border" class="reticle mx-auto align-middle mt-6">
-            <div class="align-middle my-auto center-xy text-6xl translate-y-20"> Send </div>
+          <div class="sm:w-1/2 mx-auto mt-2">
+            <div class="relative window shadow-none p-2 w-full">
+              <!-- x-model="$store.depositPassword" -->
+              <input type="number" name="unlockDepositAmount" id="unlockDepositAmount" step="any"
+                class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
+                placeholder="window lock deposit">
+            </div>
           </div>
-          <div class="mx-auto h-24 w-24 rounded-full -translate-y-24"></div>
 
+
+
+          <div class="flex justify-center min-w-full mb-12">
+            <div class="flex flex-col min-w-full " x-cloak>
+              <span class="text-sm text-gray-500 hover:text-gray-400 mt-2">
+                Set your own passphrase for claiming the funds. This can by anything, a password or maybe the correct
+                answer to a puzzle.
+                <br> <br>
+                Use the lock deposit amount to require a deposit before someone attempts claim the funds. <br>
+                Link-O-Tron uses a commit-reveal scheme to prevent frontrunning.
+                <ul>
+                  <li>1. The claimer says "I know the password"</li>
+                  <li>2. The smart contract locks all interactions to the claimer only for some time. </li>
+                  <li>3. The claimer reveals the password.</li>
+                  <li>4. The smart contract makes a transaction to the sender with the funds.</li>
+                </ul>
+                <br>
+                One possible attack is a DoS attack where someone does step 1 without ever doing 3. Such an attack
+                costs
+                gas and there is nothing to win directly. However, it could cause damage, if someone relies on the
+                transaction to go through. This field lets you set a deposit amount for step 1, and if the password is
+                not revealed, the claimer loses the deposit. This makes such DoS much more costly.<br>
+
+              </span>
+            </div>
+          </div>
+
+
+          <!-- hidden input: current chain -->
+          <input type="hidden" name="gChain" id="gChain" x-model="$store.gChain">
         </div>
+      </div>
+      <div class="grid-cols-2 mt-4 w-full text-center">
+
+
+
+        <div @click="deposit();" data-augmented-ui="all-hexangle-up border" class="reticle mx-auto align-middle mt-6">
+          <div class="align-middle my-auto center-xy text-6xl translate-y-20"> Send </div>
+        </div>
+        <div class="mx-auto h-24 w-24 rounded-full -translate-y-24"></div>
+
+      </div>
     </div>
 
     <!-- STASH SUCCESS TAB -->
@@ -295,10 +295,9 @@ add input fields for NFT SC address and NFT ID
       <!-- FETCH SUCCESS TAB -->
 
       <div class="window p-6 bg-color-firstthird" x-cloak x-show="$store.withdrawSuccess">
-        <h1 class="lg:text-3xl text-xl">fetch confirmed</h1>
+        <h1 class="lg:text-3xl text-xl">Claiming confirmed</h1>
         <p class="mb-4 text-xl">
-          You dug up your stash and retrieved your funds. You are a cyber squirrel. You feel empowered. They can't
-          sanction you.
+You are living in the mega future. You have claim the funds from Link-O-Tron 3000. 
         </p>
 
         <p class="mb-4 text-lg">
