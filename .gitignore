@@ -6,6 +6,8 @@ secrets.json
 2.env
 main.css
 error.text
+output.css
+
 
 app/promo_qrcodes/out/
 webpack-demo

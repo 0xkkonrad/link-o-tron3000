@@ -32,28 +32,14 @@ if (idx && password && unlockDepositAmount && chain) {
 // mumbai, goerli, polygon main, ethereum main
 // Alpine.store("gChain", "polygon-main");
 var contract_addresses = {
-  "eth-main": "",
-  goerli: "0x2e0092beE1fF5902278D64d4E760920C6Fd10974",
-  mumbai: "",
-  "polygon-main": "0xc5A2A997b6D370383b2fA1254939DbA2A73aBa8C",
-  optimism: "0x8d1a17a3a4504aeb17515645ba8098f1d75237f7",
-  moonbeam: "0x897F8EDdB345F0d16081615823F76055Ad60A00c",
+  "tron-main": "TFuxvZ1ucftuWWJrcqyiYRANDXVLYAutu2",
+  "tron-shasta": "",
 };
 var chainIds = {
-  "eth-main": 1,
-  goerli: 5,
-  mumbai: 80001,
-  "polygon-main": 137,
-  optimism: 10,
-  moonbeam: 1284,
 };
 var blockExplorers = {
-  "eth-main": "https://etherscan.io/",
-  goerli: "https://goerli.etherscan.io/",
-  mumbai: "https://mumbai.polygonscan.com/",
-  "polygon-main": "https://polygonscan.com/",
-  optimism: "https://optimistic.etherscan.io/",
-  moonbeam: "https://moonscan.io/",
+  "tron-main": "https://tronscan.org/",
+  "tron-shasta": "https://shasta.tronscan.org/",
 };
 Alpine.store("blockExplorers", blockExplorers);
 
@@ -102,81 +88,10 @@ async function switchTogChain() {
   }
 }
 
-async function addChain() {
-  console.log('adding chain');
-  try {
-    const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-    if (Alpine.store("gChain") == "polygon-main") {
-      await provider.send("wallet_addEthereumChain", [
-        {
-          chainId: "0x" + chainIds[Alpine.store("gChain")].toString(16),
-          chainName: "Polygon Mainnet",
-          nativeCurrency: {
-            name: "MATIC",
-            symbol: "MATIC",
-            decimals: 18,
-          },
-          rpcUrls: ["https://rpc-mainnet.maticvigil.com/"],
-          blockExplorerUrls: ["https://polygonscan.com/"],
-        },
-      ]);
-      console.log('added chain' + Alpine.store("gChain"));
-    } else if (Alpine.store("gChain") == "goerli") {
-      await provider.send("wallet_addEthereumChain", [
-        {
-          chainId: "0x" + chainIds[Alpine.store("gChain")].toString(16),
-          chainName: "Goerli Testnet",
-          nativeCurrency: {
-            name: "ETH",
-            symbol: "ETH",
-            decimals: 18,
-          },
-          rpcUrls: ["https://rpc.goerli.mudit.blog/"],
-          blockExplorerUrls: ["https://goerli.etherscan.io/"],
-        },
-      ]);
-      console.log('added chain' + Alpine.store("gChain"));
-    } else if (Alpine.store("gChain") == "optimism") {
-      await provider.send("wallet_addEthereumChain", [
-        {
-          chainId: "0x" + chainIds[Alpine.store("gChain")].toString(16),
-          chainName: "Optimism",
-          nativeCurrency: {
-            name: "ETH",
-            symbol: "ETH",
-            decimals: 18,
-          },
-          rpcUrls: ["https://mainnet.optimism.io/"],
-          blockExplorerUrls: ["https://optimistic.etherscan.io/"],
-        },
-      ]);
-      console.log('added chain' + Alpine.store("gChain"));
-    } else if (Alpine.store("gChain") == "moonbeam") {
-      await provider.send("wallet_addEthereumChain", [
-        {
-          chainId: "0x" + chainIds[Alpine.store("gChain")].toString(16),
-          chainName: "Moonbeam",
-          nativeCurrency: {
-            name: "GLMR",
-            symbol: "GLMR",
-            decimals: 18,
-          },
-          rpcUrls: ["https://rpc.api.moonbeam.network"],
-          blockExplorerUrls: ["https://moonscan.io/"],
-        },
-      ]);
-      console.log('added chain' + Alpine.store("gChain"));
-    } else {
-      alert("Chain not supported");
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
 
 async function connect() {
   if (!window.ethereum) {
-    alert("Please install MetaMask to use this dApp!");
+    alert("Please install a TRON compatible wallet to use this dApp!");
     return;
   }
   const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
@@ -221,7 +136,7 @@ debugList = [];
 
 async function deposit() {
   console.log(
-    "%c deposit squirrel has been called",
+    "%c deposit has been called",
     "font-size: 20px; background-color: purple; color: white;"
   );
 
