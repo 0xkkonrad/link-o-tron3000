@@ -14,7 +14,7 @@ add input fields for NFT SC address and NFT ID
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title> Squirrel </title>
+  <title> Link-O-Tron 3000 </title>
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐿️</text></svg>">
 
@@ -34,21 +34,21 @@ add input fields for NFT SC address and NFT ID
 
 <body class="font-mono text-white bg">
 
+  <div class="bg-color-animation fixed -z-50 opacity-10 "></div>
+
 
   <header class="items-center mx-auto w-1/2 m-6">
 
-    <div class="gap-4 text-center p-6 flex-col flex lg:flex-row" style="grid-template-columns: 1fr 1fr auto; ">
+    <div class="mt-8 gap-4 text-center p-6 flex-col flex lg:flex-row" style="grid-template-columns: 1fr 1fr auto; ">
 
-      <div x-data @click="$store.activeTab = 0;"
-        data-augmented-ui="tl-2-clip-x tr-clip br-clip-y bl-2-clip-x both"
+      <div x-data @click="$store.activeTab = 0;" data-augmented-ui="tl-2-clip-x tr-clip br-clip-y bl-2-clip-x both"
         class="w-full lg:w-1/2 hover:shadow-none hover:translate-x-2 hover:translate-y-2 gap-4 p-12 text-3xl ">
-        stash
+        Send
       </div>
 
       <div x-data @click="$store.activeTab = 1;" data-augmented-ui="  tl-clip tr-2-clip-x br-2-clip-x bl-clip-y both"
-        class="w-full lg:w-1/2 hover:shadow-none hover:translate-x-2 hover:translate-y-2 gap-4 text-center p-12">
-
-        Fetch Optiomns
+        class="w-full lg:w-1/2 hover:shadow-none hover:translate-x-2 hover:translate-y-2 gap-4 text-center p-12 text-3xl ">
+        Claim
       </div>
 
     </div>
@@ -59,21 +59,18 @@ add input fields for NFT SC address and NFT ID
 
     <!-- STASH TAB (0) -->
 
-    <div class="p-6 bg-color-firstthird" data-augmented-ui="tl-clip tr-2-clip-y br-clip-x bl-rect-y both"
+    <div class="p-12 bg-color-firstthird " data-augmented-ui="tl-clip tr-2-clip-y br-clip-x bl-rect-y both "
       x-show=" $store.activeTab===0 && $store.depositSuccess===false && $store.withdrawSuccess===false" x-cloak>
 
-      <div class="typewriter glitch-letters">
-        <h1 class="lg:text-3xl text-xl">Right to stash.</h1>
+      <div class="typewriter">
+        <h1 class="lg:text-3xl text-3xl font-black"> >>>> Link-O-Tron 3000</h1>
       </div>
-      <p class="mb-4 text-3xl">
-        Being a cyber squirrel is a right.
-        Here, you can deposit crypto, and let your frens claim it later with a secret link.
-        This is a fully decentralised and unstoppable app. No one can stop you from stashing your stuff. Be a cyber
-        squirrel.
+      <p class="mb-4 text-xl">
 
-
-
-
+        1. Send Tron to Link-O-Tron 3000. <br>
+        2. Receive a secret link with a unique ID. <br>
+        3. Send the secret link to a friend <br>
+        4. Your friend can claim the Tron by clicking the link <br>
 
       </p>
 
@@ -99,17 +96,8 @@ add input fields for NFT SC address and NFT ID
       <div class="flex justify-center min-w-full" x-data="{ showAdvanced: false }">
         <button type="button" class="text-sm text-gray-500 hover:text-gray-400 mt-2"
           @click="showAdvanced = !showAdvanced" x-show="!showAdvanced">
-          Advanced options</button>
+          Advanced options & Info</button>
         <div x-show="showAdvanced" class="flex flex-col min-w-full" x-cloak>
-
-          <div class="sm:w-1/2 mx-auto mt-2">
-            <div class="relative window shadow-none p-2 w-full">
-              <!-- x-model="$store.depositPassword" -->
-              <input type="number" name="unlockDepositAmount" id="unlockDepositAmount" step="any"
-                class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
-                placeholder="window lock deposit">
-            </div>
-          </div>
 
           <div class="sm:w-1/2 mx-auto mt-2">
             <div class="relative window shadow-none p-2 w-full">
@@ -120,19 +108,52 @@ add input fields for NFT SC address and NFT ID
             </div>
           </div>
 
+          <div class="sm:w-1/2 mx-auto mt-2">
+            <div class="relative window shadow-none p-2 w-full">
+              <!-- x-model="$store.depositPassword" -->
+              <input type="number" name="unlockDepositAmount" id="unlockDepositAmount" step="any"
+                class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
+                placeholder="window lock deposit">
+            </div>
+          </div>
+
+
+
+          <div class="flex justify-center min-w-full mb-12">
+            <div class="flex flex-col min-w-full " x-cloak>
+              <span class="text-sm text-gray-500 hover:text-gray-400 mt-2">
+                Set your own passphrase for claiming the funds. This can by anything, a password or maybe the correct
+                answer to a puzzle.
+                <br> <br>
+                Use the lock deposit amount to require a deposit before someone attempts claim the funds. <br>
+                Link-O-Tron uses a commit-reveal scheme to prevent frontrunning.
+                <ul>
+                  <li>1. The claimer says "I know the password"</li>
+                  <li>2. The smart contract locks all interactions to the claimer only for some time. </li>
+                  <li>3. The claimer reveals the password.</li>
+                  <li>4. The smart contract makes a transaction to the sender with the funds.</li>
+                </ul>
+                <br>
+                One possible attack is a DoS attack where someone does step 1 without ever doing 3. Such an attack costs
+                gas and there is nothing to win directly. However, it could cause damage, if someone relies on the
+                transaction to go through. This field lets you set a deposit amount for step 1, and if the password is
+                not revealed, the claimer loses the deposit. This makes such DoS much more costly.<br>
+
+              </span>
+            </div>
+          </div>
+
+
           <!-- hidden input: current chain -->
           <input type="hidden" name="gChain" id="gChain" x-model="$store.gChain">
         </div>
       </div>
       <div class="grid-cols-2 mt-4 w-full text-center">
-        <button x-html="$store.depositButtonText"
-          class="text-3xl p-4 m-2 px-4 bg-color-secondthird hover:shadow-none window w-full sm:w-1/3 hover:translate-x-2 hover:translate-y-2 "
-          @click="deposit();">
-          Stash </button>
 
 
-        <div data-augmented-ui="all-hexangle-up border" class="reticle mx-auto align-middle">
-          <div class="align-middle my-auto center-xy"> TEST</div>
+
+        <div @click="deposit();" data-augmented-ui="all-hexangle-up border" class="reticle mx-auto align-middle mt-6">
+          <div class="align-middle my-auto center-xy text-6xl translate-y-20"> Send </div>
         </div>
         <div class="mx-auto h-24 w-24 rounded-full -translate-y-24"></div>
 
@@ -141,7 +162,7 @@ add input fields for NFT SC address and NFT ID
 
     <!-- STASH SUCCESS TAB -->
     <div class="window p-6 bg-color-firstthird" x-cloak x-show="$store.depositSuccess">
-      <div class="typewriter glitch-letters">
+      <div class="typewriter">
         <h1 class="lg:text-3xl text-xl">Deposit Confirmed!</h1>
       </div>
       <p class="mb-4 text-3xl">
@@ -176,150 +197,169 @@ add input fields for NFT SC address and NFT ID
 
 
     <!-- FETCH TAB (1) -->
-    <div class="window p-6 bg-color-secondthird"
-      x-show="$store.activeTab === 1 && $store.depositSuccess === false && $store.withdrawSuccess === false" x-cloak
-      x-init="if (window.location.href.indexOf('?') > -1) { $store.activeTab = 1;  console.log('url params found'); }">
-        <h1 class="lg:text-3xl text-xl">Right to fetch.</h1>
-      <p class="mb-4 text-3xl">
-        Being a cyber squirrel is a right.
-        Fetch stashed crypto at any time with your secret link:
-      </p>
-      <div class="sm:w-3/4 mx-auto my-4 mt-8">
-        <div class="relative window shadow-none p-2">
-          <input type="text" name="fetchPassphrase" id="fetchPassphrase"
-            class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
-            placeholder="Super Secret Passphrase">
-          <div class="absolute inset-y-0 right-0 flex items-center">
-            </select>
+    <div data-augmented-ui="tl-2-clip-x tr-clip-x br-2-clip-x bl-clip both">
+      <div class="window p-12"
+        x-show="$store.activeTab === 1 && $store.depositSuccess === false && $store.withdrawSuccess === false" x-cloak
+        x-init="if (window.location.href.indexOf('?') > -1) { $store.activeTab = 1;  console.log('url params found'); }">
+        <h1 class="lg:text-3xl text-xl typewriter">>>> Claim-O-Tron 3000</h1>
+        <p class="mb-4 text-3xl">
+          You've been a send a Link-O-Tron 3000 link? Simply paste into your URL bar.
+          <br> If you've been given a password and an index enter it below.
+        </p>
+        <div class="sm:w-3/4 mx-auto my-4 mt-8">
+          <div class="relative window shadow-none p-2">
+            <input type="text" name="fetchPassphrase" id="fetchPassphrase"
+              class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
+              placeholder="Super Secret Passphrase">
+            <div class="absolute inset-y-0 right-0 flex items-center">
+              </select>
+            </div>
           </div>
-        </div>
-        <div class="relative window shadow-none p-2">
-          <input type="number" name="fetchDepositIndex" id="fetchDepositIndex" step="any"
-            class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
-            placeholder="Index of Deposit you want to claim">
-          <div class="absolute inset-y-0 right-0 flex items-center">
-            </select>
+          <div class="relative window shadow-none p-2">
+            <input type="number" name="fetchDepositIndex" id="fetchDepositIndex" step="any"
+              class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
+              placeholder="Index of Deposit you want to claim">
+            <div class="absolute inset-y-0 right-0 flex items-center">
+              </select>
+            </div>
+          </div>
+
+          <div class="relative window shadow-none p-2">
+            <input type="number" name="fetchUnlockDepositAmount" id="fetchUnlockDepositAmount" step="any"
+              class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
+              placeholder="Index of Deposit you want to claim" value="0">
+            <div class="absolute inset-y-0 right-0 flex items-center">
+              </select>
+            </div>
+          </div>
+
+          <div class="relative window shadow-none p-2">
+            <input type="text" name="fetchChain" id="fetchChain" step="any"
+              class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
+              placeholder="Index of Deposit you want to claim" value="0">
+            <div class="absolute inset-y-0 right-0 flex items-center">
+              </select>
+            </div>
+          </div>
+
+          <!-- explanatory text -->
+          <div class="flex justify-center min-w-full">
+            <div class="flex flex-col min-w-full" x-cloak>
+              <p class="text-sm text-gray-500 hover:text-gray-400 mt-2">
+                This will require 2 transactions: One to lock your deposit (so you don't get frontrun) and one to claim
+                your deposit. You will have 100 blocks of time, or about 15 minutes to claim the second transaction.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div class="relative window shadow-none p-2">
-          <input type="number" name="fetchUnlockDepositAmount" id="fetchUnlockDepositAmount" step="any"
-            class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
-            placeholder="Index of Deposit you want to claim" value="0">
-          <div class="absolute inset-y-0 right-0 flex items-center">
-            </select>
-          </div>
+        <div class="grid-cols-2 mt-4 w-full text-center">
+          <button x-html="$store.withdrawButtonText"
+            class="text-3xl p-4 px-12 bg-color-secondthird hover:shadow-none window hover:translate-x-2 hover:translate-y-2 "
+            @click="withdrawEtherPassword(); console.log('fetch clicked')">
+            Fetch </button>
         </div>
 
-        <div class="relative window shadow-none p-2">
-          <input type="text" name="fetchChain" id="fetchChain" step="any"
-            class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
-            placeholder="Index of Deposit you want to claim" value="0">
-          <div class="absolute inset-y-0 right-0 flex items-center">
-            </select>
-          </div>
-        </div>
-
-        <!-- explanatory text -->
-        <div class="flex justify-center min-w-full">
-          <div class="flex flex-col min-w-full" x-cloak>
-            <p class="text-sm text-gray-500 hover:text-gray-400 mt-2">
-              This will require 2 transactions: One to lock your deposit (so you don't get frontrun) and one to claim
-              your deposit. You will have 100 blocks of time, or about 15 minutes to claim the second transaction.
-            </p>
-          </div>
-        </div>
       </div>
 
-      <div class="grid-cols-2 mt-4 w-full text-center">
-        <button x-html="$store.withdrawButtonText"
-          class="text-3xl p-4 px-12 bg-color-secondthird hover:shadow-none window hover:translate-x-2 hover:translate-y-2 "
-          @click="withdrawEtherPassword(); console.log('fetch clicked')">
-          Fetch </button>
-      </div>
+      <!-- FETCH SUCCESS TAB -->
 
-    </div>
-
-    <!-- FETCH SUCCESS TAB -->
-
-    <div class="window p-6 bg-color-firstthird" x-cloak x-show="$store.withdrawSuccess">
+      <div class="window p-6 bg-color-firstthird" x-cloak x-show="$store.withdrawSuccess">
         <h1 class="lg:text-3xl text-xl">fetch confirmed</h1>
-      <p class="mb-4 text-xl">
-        You dug up your stash and retrieved your funds. You are a cyber squirrel. You feel empowered. They can't
-        sanction you.
-      </p>
+        <p class="mb-4 text-xl">
+          You dug up your stash and retrieved your funds. You are a cyber squirrel. You feel empowered. They can't
+          sanction you.
+        </p>
 
-      <p class="mb-4 text-lg">
-        Your transaction hash: <a class="word-break text-sm" x-text="$store.withdrawSuccessTx" target="_blank"
-          x-bind:href="$store.withdrawSuccessLink"></a>
-      </p>
+        <p class="mb-4 text-lg">
+          Your transaction hash: <a class="word-break text-sm" x-text="$store.withdrawSuccessTx" target="_blank"
+            x-bind:href="$store.withdrawSuccessLink"></a>
+        </p>
+      </div>
     </div>
   </div>
+
+
+
+
 
 
 
   <!-- INFO BOX  -->
-  <div x-data="{activeTab: 1}" class="mt-12">
-    <div class="text-center">
+  <div data-augmented-ui="tl-clip-x tr-clip-x br-clip bl-clip both" class="w-[420px] mx-auto">
+    <div x-data="{activeTab: 0}" class="mt-12 w-[400px] mx-auto">
+      <div class="text-center">
 
-      <label class="hover:underline text-xl px-2" @click="activeTab = 0"
-        :class="{ 'active': activeTab === 0 }">Squirrel</label>
-      <label class="hover:underline text-xl px-2" @click="activeTab = 1"
-        :class="{ 'active': activeTab === 1 }">FAQ</label>
-      <label class="hover:underline text-xl px-2" @click="activeTab = 2"
-        :class="{ 'active': activeTab === 2 }">Team</label>
+        <label class="hover:underline text-xl px-2" @click="activeTab = 0"
+          :class="{ 'active': activeTab === 0 }">TRON</label>
+        <label class="hover:underline text-xl px-2" @click="activeTab = 1"
+          :class="{ 'active': activeTab === 1 }">FAQ</label>
+        <label class="hover:underline text-xl px-2" @click="activeTab = 2"
+          :class="{ 'active': activeTab === 2 }">Team</label>
 
-      <div class="tab-panel" :class="{ 'active': activeTab === 0 }"
-        x-show.transition.in.opacity.duration.600="activeTab === 0">
-        <pre class="z-10 text-left squirrel bg-color-secondthird bg-opacity-50 window w-96 h-64  mx-auto"
-          style="box-shadow: 0.5rem 0.5rem 0 0px hsl(var(--splitcomplimentarity1), 100%, 20%)"></pre>
-      </div>
+        <div class="tab-panel" :class="{ 'active': activeTab === 0 }"
+          x-show.transition.in.opacity.duration.600="activeTab === 0">
 
-      <div class="tab-panel" :class="{ 'active': activeTab === 1 }"
-        x-show.transition.in.opacity.duration.600="activeTab === 1">
-        <p class="text-left p-4 squirrel bg-color-firstthird bg-opacity-50 window w-96 h-fit  mx-auto"
-          style="box-shadow: 0.5rem 0.5rem 0 0px hsl(var(--splitcomplimentarity1), 100%, 20%)">
-          <span>
-            <span class="font-black text-lg"> > Is it decentralised? <br></span>
-            <span> >>> Yes, Squirrel is unstoppable, fully decentralised and its frontend is on IPFS.<br></span>
-            <span class="font-black text-lg"> > Why does it matter? <br></span>
-            <span> >>> It's your right to be a cyber squirrel! <br></span>
-            <span class="font-black text-lg"> > Uses cases? <br></span>
-            <span> >>> Wallet-less stashing for yourself, send crypto seamlessly, reward puzzle solving! <br></span>
-            <span class="font-black text-lg"> > Can I build on this? <br></span>
-            <span> >>> Yes, it's all unlicensed and the few bits of js and css we used are MIT or unlicensed. Let us
-              know what thoughts you have!<br></span>
-            <span class="font-black text-lg"> > Is it safe? <br></span>
-            <span> >>> We don't know but we hope so. Try attacking it and let us know! <br></span>
-            <span class="font-black text-lg"> > Show me the contracts <br></span>
-            <span> >>> Sure!
-              <a href="https://goerli.etherscan.io/address/0x2e0092bee1ff5902278d64d4e760920c6fd10974"
-                target="_blank">Goerli</a>,
-              <a href="https://polygonscan.com/address/0xc5a2a997b6d370383b2fa1254939dba2a73aba8c"
-                target="_blank">Polygon</a>,
-              <a href="https://optimistic.etherscan.io/address/0x8d1a17a3a4504aeb17515645ba8098f1d75237f7"
-                target="_blank">Optimism</a>,
-              <a href="https://moonscan.io/address/0x897F8EDdB345F0d16081615823F76055Ad60A00c"
-                target="_blank">Moonbeam</a>
-            </span>
-        </p>
-      </div>
-      <div class="tab-panel" :class="{ 'active': activeTab === 2 }"
-        x-show.transition.in.opacity.duration.600="activeTab === 2">
-        <p class="text-left p-4 squirrel bg-color-splitcomplimentarity1 bg-opacity-50 window w-96 h-64  mx-auto"
-          style="box-shadow: 0.5rem 0.5rem 0 0px hsl(var(--splitcomplimentarity1), 100%, 20%)">
-          > Check out <a href="https://prophet.money/"> our other projects</a> <br>
-          >>> <a href="https://hugomontenegro.com/" target="_blank"> hugo</a> <br>
-          >>> <a href="https://konradurban.com/" target="_blank"> konrad</a> <br>
-          > special thanks to roshan & justin, and the entire ethberlin 22 crowd<br>
-          > we'd love hear from you and see what you build on this<br>
-          > <a href="https://unlicense.org/" target="_blank"> unlicense </a>
-        </p>
+          <canvas width="400" height="400" id="game" class="mx-auto"></canvas>
+          
+          <span class="text-sm">
+          WASD 1-player Tron (totally not snake)</span>
+        </div>
+
+        <div class="tab-panel" :class="{ 'active': activeTab === 1 }"
+          x-show.transition.in.opacity.duration.600="activeTab === 1">
+          <p class="text-left p-4 h-fit  mx-auto"
+            style="box-shadow: 0.5rem 0.5rem 0 0px hsl(var(--splitcomplimentarity1), 100%, 20%)">
+            <span>
+              <span class="font-black text-lg"> > Is it decentralised? <br></span>
+              <span> >>> Yes, Link-O-Tron 3000 is unstoppable, fully decentralised and its frontend is on
+                IPFS.<br></span>
+              <span class="font-black text-lg"> > Why does it matter? <br></span>
+              <span> >>> We're working towards fully-automated space capitalism! <br></span>
+              <span class="font-black text-lg"> > Uses cases? <br></span>
+              <span> >>> Wallet-less stashing for yourself, send crypto seamlessly, reward puzzle solving! <br></span>
+              <span class="font-black text-lg"> > Can I build on this? <br></span>
+              <span> >>> Yes, it's all unlicensed and the few bits of js and css we used are MIT or unlicensed. Let us
+                know what thoughts you have!<br></span>
+              <span class="font-black text-lg"> > Is it safe? <br></span>
+              <span> >>> We don't know but we hope so. Try attacking it and let us know! <br></span>
+              <span class="font-black text-lg"> > Show me the contracts <br></span>
+              <!-- @hugo SC links here -->
+              <span> >>> Sure!
+                <a href="https://goerli.etherscan.io/address/0x2e0092bee1ff5902278d64d4e760920c6fd10974"
+                  target="_blank">Goerli</a>,
+                <a href="https://polygonscan.com/address/0xc5a2a997b6d370383b2fa1254939dba2a73aba8c"
+                  target="_blank">Polygon</a>,
+                <a href="https://optimistic.etherscan.io/address/0x8d1a17a3a4504aeb17515645ba8098f1d75237f7"
+                  target="_blank">Optimism</a>,
+                <a href="https://moonscan.io/address/0x897F8EDdB345F0d16081615823F76055Ad60A00c"
+                  target="_blank">Moonbeam</a>
+              </span>
+          </p>
+        </div>
+
+        <div class="tab-panel  mx-auto" :class="{ 'active': activeTab === 2 }"
+          x-show.transition.in.opacity.duration.600="activeTab === 2">
+          <p class="text-left p-4 h-64 mx-auto"
+            style="box-shadow: 0.5rem 0.5rem 0 0px hsl(var(--splitcomplimentarity1), 100%, 20%)">
+            >>> <a href="https://hugomontenegro.com/" target="_blank"> hugo</a> <br>
+            >>> <a href="https://konradurban.com/" target="_blank"> konrad</a> <br>
+            > special thanks to <br> @Jane0ri, @sayeedmarkus, Justin Holmes, Roshan, and the entire Tron crowd<br>
+            > we'd love hear from you and see what you build on this<br>
+            > <a href="https://unlicense.org/" target="_blank"> unlicense </a>
+          </p>
+        </div>
+
+
       </div>
 
 
     </div>
   </div>
+  </div>
+
+
+
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script>
     document.addEventListener('alpine:init', () => {
@@ -336,11 +376,19 @@ add input fields for NFT SC address and NFT ID
   </script>
 
   <!-- Javascript stuff -->
-  <script defer src="morph.js"></script>
+  <script defer src="snake.js"></script>
 
   <script defer src="ethers-5.2.umd.min.js"></script>
   <script defer src="colors.js"></script>
   <script defer src="crypto.js"></script>
+
+  <script>
+    const doodle = document.querySelector('css-doodle');
+
+    document.addEventListener("click", () => {
+      doodle.update();
+    })
+  </script>
 
 </body>
 

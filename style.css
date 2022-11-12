@@ -4,8 +4,9 @@
 
 @import "/node_modules/augmented-ui/augmented-ui.min.css";
 
-
-
+* {
+  --aug-inlay-bg: rgba(0, 0, 0, 0.15) !important;
+}
 
 html,
 body {
@@ -13,7 +14,6 @@ body {
   height: 100%;
   overflow-x: hidden;
 }
-
 
 /* TABS ALPINE */
 
@@ -28,98 +28,39 @@ body {
 }
 
 .bg {
-    background: repeating-linear-gradient(
+  background: repeating-linear-gradient(
       to top,
       rgba(255, 255, 255, 0.03) 0px 2px,
       transparent 2px 4px
     ),
     linear-gradient(to bottom, #200933 75%, #3d0b43);
-  }
-  .bg::after{
-    content:'';
-    height:50%;
-    width:100%;
-    display:block;
-    background-image:linear-gradient(90deg, rgba(252,25,154,.1) 1px, rgba(0,0,0,0) 1px), linear-gradient(0deg, rgba(252,25,154,.1) 1px, rgba(0,0,0,0) 1px);
-    background-position:bottom;
-    background-repeat:repeat;
-    background-size:20px 20px;
-    left: -25px;
-    position: absolute;
-    pointer-events: none;
-    bottom: 0;
-    transform: perspective(100px) rotateX(60deg);
-    z-index: 0;
-  }
-  
-
-.color-mouse {
-  background: hsl(var(--h), 100%, 30%);
-  z-index: -10;
+  /* linear-gradient(to bottom, #200933 75%, #3d0b43); */
 }
-
-.color-reverse {
-  color: hsl(var(--d), 100%, 30%);
-}
-
-.bg-color-reverse {
-  background: radial-gradient(
-      circle at 65% 35%,
-      hsla(var(--d), 100%, 30%, 0.5),
-      hsla(var(--h), 200%, 5%, 1)
+.bg::after {
+  content: "";
+  height: 50%;
+  width: 100%;
+  display: block;
+  background-image: linear-gradient(
+      90deg,
+      rgba(252, 25, 154, 0.1) 1px,
+      rgba(0, 0, 0, 0) 1px
     ),
-    var(--noise);
+    linear-gradient(0deg, rgba(252, 25, 154, 0.1) 1px, rgba(0, 0, 0, 0) 1px);
+  background-position: bottom;
+  background-repeat: repeat;
+  background-size: 20px 20px;
+  left: -25px;
+  position: absolute;
+  pointer-events: none;
+  bottom: 0;
+  transform: perspective(100px) rotateX(60deg);
+  z-index: 0;
 }
-
-.bg-color-firstthird {
-  background: radial-gradient(
-      circle at -20% 35%,
-      hsla(var(--firstthird), 100%, 30%, 0.5),
-      hsla(var(--h), 200%, 5%, 1)
-    ),
-    var(--noise);
-}
-
-.bg-color-secondthird {
-  background: radial-gradient(
-      circle at 120% 35%,
-      hsla(var(--secondthird), 100%, 30%, 0.5),
-      hsla(var(--h), 200%, 5%, 1)
-    ),
-    var(--noise);
-}
-
-.bg-color-splitcomplimentarity1 {
-  background: radial-gradient(
-      circle at 65% 35%,
-      hsla(var(--splitcomplimentarity1), 100%, 30%, 0.5),
-      hsla(var(--h), 200%, 5%, 1)
-    ),
-    var(--noise);
-}
-
-.bg-color-splitcomplimentarity2 {
-  background: radial-gradient(
-      circle at 65% 35%,
-      hsla(var(--splitcomplimentarity2), 100%, 30%, 0.5),
-      hsla(var(--h), 200%, 5%, 1)
-    ),
-    var(--noise);
-}
-
-.text-mouse-color {
-  background: radial-gradient(
-      circle at 65% 35%,
-      hsla(var(--h), 100%, 30%, 0.5),
-      hsla(var(--h), 200%, 5%, 1)
-    ),
-    var(--noise);
-}
-
 
 .typewriter h1 {
   overflow: hidden;
-  border-right: 0.15em solid hsla(var(--h), 100%, 50%, 1);
+  border-right: 0.15em solid white;
   white-space: nowrap;
   letter-spacing: 0.15em;
   animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
@@ -142,23 +83,91 @@ body {
     border-color: transparent;
   }
   50% {
-    border-color: hsla(var(--h), 100%, 50%, 1);
+    border-color: white;
   }
 }
 
-
-
 .reticle {
+  background-color: rgba(255, 255, 255, 0.2);
   --aug-all-width: 250px;
-  color: hsla(var(--h), 100%, 50%, 1);
+  color: white;
   --reticle-color: currentColor;
   --reticle-size: calc(var(--aug-all-width) * 0.25);
   transform-origin: 50% 56%;
   transform: rotateZ(0deg);
-  transition: transform 0.75s ease-out, color 0.75s ease-out;
-}
-.reticle:hover {
-  transform: rotateZ(720deg);
-  color: hsla(var(--d), 100%, 50%, 1);
+  transition: transform 0.2s ease-out, color 0.75s ease-out;
 }
 
+/* glowing border */
+
+.reticle:hover {
+  transform: scale(0.9);
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.reticle:active {
+  transform: rotateZ(720deg);
+}
+
+@keyframes blink {
+  0% {
+    background: violet;
+  }
+  14.3% {
+    background: indigo;
+  }
+  28.6% {
+    background: blue;
+  }
+  42.9% {
+    background: violet;
+  }
+  57.2% {
+    background: indigo;
+  }
+  71.5% {
+    background: blue;
+  }
+  85.8% {
+    background: red;
+  }
+  100% {
+    background: violet;
+  }
+}
+
+@-webkit-keyframes blink {
+  0% {
+    background: violet;
+  }
+  14.3% {
+    background: indigo;
+  }
+  28.6% {
+    background: blue;
+  }
+  42.9% {
+    background: violet;
+  }
+  57.2% {
+    background: indigo;
+  }
+  71.5% {
+    background: blue;
+  }
+  85.8% {
+    background: red;
+  }
+  100% {
+    background: violet;
+  }
+}
+
+.bg-color-animation {
+  height: 100vh;
+  width: 100%;
+  animation: blink 5s linear infinite;
+  -webkit-animation: blink 15s linear infinite;
+}

@@ -1,25 +1,25 @@
-const root = document.documentElement;
-
-var x = 12;
-var y = 24;
-
-// root.addEventListener('mousemove', mousecolor => {
-//     let x = mousecolor.clientX / innerWidth,
-//         y = mousecolor.clientY / innerWidth;
-//     x = Math.floor(Math.sqrt(x) * 230);
-//     root.style.setProperty('--h', x)
-//     root.style.setProperty('--d', x - 180)
-//     root.style.setProperty('--firstthird', x - 120)
-//     root.style.setProperty('--secondthird', x - 240)
-//     root.style.setProperty('--splitcomplimentarity1', x + 90)
-//     root.style.setProperty('--splitcomplimentarity2', x + 170)
-// });
-
-// initialize color
-root.style.setProperty('--h', x)
-root.style.setProperty('--d', x - 180)
-root.style.setProperty('--firstthird', x - 120)
-root.style.setProperty('--secondthird', x - 240)
-root.style.setProperty('--splitcomplimentarity1', x + 90)
-root.style.setProperty('--splitcomplimentarity2', x + 170)
-
+var granimInstance = new Granim({
+    element: "#canvas-image-blending",
+    direction: "top-bottom",
+    isPausedWhenNotInView: true,
+    image: {
+      source:
+        "https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      blendingMode: "multiply"
+    },
+    states: {
+      "default-state": {
+        gradients: [
+          ["#834D9B", "#D04ED6"],
+          ["#1CD8D2", "#93EDC7"],
+          ["#12c2e9", "#c471ed"],
+          ["#b92b27", "#1565C0"],
+          ["#373B44", "#4286f4"],
+          ["#2980B9", "#6DD5FA"],
+          ["#6b6b83", "#3b8d99"]
+        ],
+        transitionSpeed: 3000
+      }
+    }
+  });
+  
