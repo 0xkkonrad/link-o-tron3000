@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "/node_modules/augmented-ui/augmented-ui.min.css";
+@import "../node_modules/augmented-ui/augmented-ui.min.css";
 
 * {
   --aug-inlay-bg: rgba(0, 0, 0, 0.15) !important;
@@ -21,6 +21,7 @@ body {
   border: 1px white;
   border-style: none dashed none none;
 }
+
 
 .tabs.active {
   position: relative;

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,27 +8,18 @@
   <title> Link-O-Tron 3000 </title>
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
-
-
-  <link rel="stylesheet" href="node_modules/augmented-ui/augmented-ui.min.css">
   <link rel="stylesheet" href="output.css">
+  <link rel="stylesheet" href="../node_modules/augmented-ui/augmented-ui.min.css">
 
-  <!-- <link rel="stylesheet" type="text/css" href="https://unpkg.com/augmented-ui@2/augmented-ui.min.css"> -->
-
-
-  <style>
+  <!-- <style>
     [x-cloak] {
       display: none;
     }
-  </style>
+  </style> -->
 </head>
 
 <body class="font-mono text-white bg">
-
-
-
   <div class="bg-color-animation fixed -z-50 opacity-10 "></div>
-
 
   <header class="items-center mx-auto w-1/2 m-6">
 
@@ -45,7 +37,6 @@
 
     </div>
   </header>
-
 
   <div class="marquee mx-auto bg-purple-900 bg-opacity-20 text-white text-7xl font-black italic tracking-widest">
     <div class="marquee2">
@@ -65,12 +56,12 @@
     </div>
   </div>
 
-  <div class="tab-wrapper m-6 lg:w-1/2 lg:mx-auto" x-data="{ activeTab:  1 }">
+  <div class="tab-wrapper m-6 lg:w-1/2 lg:mx-auto" x-data="{}">
 
     <!-- STASH TAB (0) -->
 
     <div class="p-12 bg-color-firstthird " data-augmented-ui="tl-clip tr-2-clip-y br-clip-x bl-rect-y both "
-      x-show=" $store.activeTab===0 && $store.depositSuccess===false && $store.withdrawSuccess===false" x-cloak>
+      x-show=" Alpine.store('activeTab')===0 && Alpine.store('depositSuccess')===false && Alpine.store('withdrawSuccess')===false" x-cloak>
 
       <div class="typewriter">
         <h1 class="lg:text-3xl text-3xl font-black"> >>>> Link-O-Tron 3000 </h1>
@@ -78,104 +69,104 @@
       <p class="mb-4 text-xl">
         Tron-O-Links are a new crypto primitive. They are a way to send and receive crypto assets using passwords.
 
-        <ol class="mb-4 text-xl">
-          <li>> Send tron without knowing someone's wallet address</li>
-          <li>> They can claim the Tron-O-Link by entering the password</li>
-          <li>> They will receive the crypto asset</li>
-         
-        </ol>
+      <ol class="mb-4 text-xl">
+        <li>> Send tron without knowing someone's wallet address</li>
+        <li>> They can claim the Tron-O-Link by entering the password</li>
+        <li>> They will receive the crypto asset</li>
 
-        <ol class="mb-4 text-xl">
-          <li> 1. Send Tron to Link-O-Tron 3000. </li>
-          <li> 2. Receive a secret link with a unique ID. </li>
-          <li> 3. Send the secret link to a friend </li>
-          <li> 4. Your friend can claim the Tron by clicking the link </li>
-        </ol>
-        </p>
+      </ol>
+
+      <ol class="mb-4 text-xl">
+        <li> 1. Send Tron to Link-O-Tron 3000. </li>
+        <li> 2. Receive a secret link with a unique ID. </li>
+        <li> 3. Send the secret link to a friend </li>
+        <li> 4. Your friend can claim the Tron by clicking the link </li>
+      </ol>
+      </p>
 
 
-        <div class="sm:w-1/2 mx-auto flex flex-row">
-          <div class="relative mr-4 flex-grow" data-augmented-ui="tl-clip tr-2-clip br-clip both">
-            <!-- x-model="$store.depositAmount" -->
-            <input type="number" name="depositAmount" id="depositAmount" step="any"
-              class="px-6 p-6 block bg-black w-full border-gray focus:border-solid sm:text-xl" placeholder="0.00000">
-          </div>
-          <div class="relative p-2 text-xl" data-augmented-ui="tl-clip tr-2-clip br-clip both">
-            <select class="border-transparent bg-transparent pt-4 pl-2 pr-7" x-model:value="$store.gChain">
-              <option class="bg-black" value="tron">TRON Mainnet</option>
-              <option class="bg-black" value="shasta">TRON Shasta</option>
-            </select>
-          </div>
-
+      <div class="sm:w-1/2 mx-auto flex flex-row">
+        <div class="relative mr-4 flex-grow" data-augmented-ui="tl-clip tr-2-clip br-clip both">
+          <!-- x-model="$store.depositAmount" -->
+          <input type="number" name="depositAmount" id="depositAmount" step="any"
+            class="px-6 p-6 block bg-black w-full border-gray focus:border-solid sm:text-xl" placeholder="0.00000">
+        </div>
+        <div class="relative p-2 text-xl" data-augmented-ui="tl-clip tr-2-clip br-clip both">
+          <select class="border-transparent bg-transparent pt-4 pl-2 pr-7" x-model:value="$store.gChain">
+            <option class="bg-black" value="tron">TRON Mainnet</option>
+            <option class="bg-black" value="shasta">TRON Shasta</option>
+          </select>
         </div>
 
-        <!-- advanced options on click -->
-        <div class="flex justify-center min-w-full" x-data="{ showAdvanced: false }">
-          <button type="button" class="text-sm text-gray-500 hover:text-gray-400 mt-2"
-            @click="showAdvanced = !showAdvanced" x-show="!showAdvanced">
-            Advanced options & Info</button>
-          <div x-show="showAdvanced" class="flex flex-col min-w-full" x-cloak>
+      </div>
 
-            <div class="sm:w-1/2 mx-auto mt-2">
-              <div class="relative window shadow-none p-2 w-full">
-                <!-- x-model="$store.depositPassword" -->
-                <input type="text" name="depositPassword" id="depositPassword"
-                  class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
-                  placeholder="super secret password">
-              </div>
+      <!-- advanced options on click -->
+      <div class="flex justify-center min-w-full" x-data="{ showAdvanced: false }">
+        <button type="button" class="text-sm text-gray-500 hover:text-gray-400 mt-2"
+          @click="showAdvanced = !showAdvanced" x-show="!showAdvanced">
+          Advanced options & Info</button>
+        <div x-show="showAdvanced" class="flex flex-col min-w-full" x-cloak>
+
+          <div class="sm:w-1/2 mx-auto mt-2">
+            <div class="relative window shadow-none p-2 w-full">
+              <!-- x-model="$store.depositPassword" -->
+              <input type="text" name="depositPassword" id="depositPassword"
+                class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
+                placeholder="super secret password">
             </div>
-
-            <div class="sm:w-1/2 mx-auto mt-2">
-              <div class="relative window shadow-none p-2 w-full">
-                <!-- x-model="$store.depositPassword" -->
-                <input type="number" name="unlockDepositAmount" id="unlockDepositAmount" step="any"
-                  class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
-                  placeholder="window lock deposit">
-              </div>
-            </div>
-
-
-
-            <div class="flex justify-center min-w-full mb-12">
-              <div class="flex flex-col min-w-full " x-cloak>
-                <span class="text-sm text-gray-500 hover:text-gray-400 mt-2">
-                  Set your own passphrase for claiming the funds. This can by anything, a password or maybe the correct
-                  answer to a puzzle.
-                  <br> <br>
-                  Use the lock deposit amount to require a deposit before someone attempts claim the funds. <br>
-                  Link-O-Tron uses a commit-reveal scheme to prevent frontrunning.
-                  <ul>
-                    <li>1. The claimer says "I know the password"</li>
-                    <li>2. The smart contract locks all interactions to the claimer only for some time. </li>
-                    <li>3. The claimer reveals the password.</li>
-                    <li>4. The smart contract makes a transaction to the sender with the funds.</li>
-                  </ul>
-                  <br>
-                  One possible attack is a DoS attack where someone does step 1 without ever doing 3. Such an attack
-                  costs
-                  gas and there is nothing to win directly. However, it could cause damage, if someone relies on the
-                  transaction to go through. This field lets you set a deposit amount for step 1, and if the password is
-                  not revealed, the claimer loses the deposit. This makes such DoS much more costly.<br>
-
-                </span>
-              </div>
-            </div>
-
-
-            <!-- hidden input: current chain -->
-            <input type="hidden" name="gChain" id="gChain" x-model="$store.gChain">
           </div>
-        </div>
-        <div class="grid-cols-2 mt-4 w-full text-center">
 
-
-
-          <div @click="deposit();" data-augmented-ui="all-hexangle-up border" class="reticle mx-auto align-middle mt-6">
-            <div class="align-middle my-auto center-xy text-6xl translate-y-20"> Send </div>
+          <div class="sm:w-1/2 mx-auto mt-2">
+            <div class="relative window shadow-none p-2 w-full">
+              <!-- x-model="$store.depositPassword" -->
+              <input type="number" name="unlockDepositAmount" id="unlockDepositAmount" step="any"
+                class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
+                placeholder="window lock deposit">
+            </div>
           </div>
-          <div class="mx-auto h-24 w-24 rounded-full -translate-y-24"></div>
 
+
+
+          <div class="flex justify-center min-w-full mb-12">
+            <div class="flex flex-col min-w-full " x-cloak>
+              <span class="text-sm text-gray-500 hover:text-gray-400 mt-2">
+                Set your own passphrase for claiming the funds. This can by anything, a password or maybe the correct
+                answer to a puzzle.
+                <br> <br>
+                Use the lock deposit amount to require a deposit before someone attempts claim the funds. <br>
+                Link-O-Tron uses a commit-reveal scheme to prevent frontrunning.
+                <ul>
+                  <li>1. The claimer says "I know the password"</li>
+                  <li>2. The smart contract locks all interactions to the claimer only for some time. </li>
+                  <li>3. The claimer reveals the password.</li>
+                  <li>4. The smart contract makes a transaction to the sender with the funds.</li>
+                </ul>
+                <br>
+                One possible attack is a DoS attack where someone does step 1 without ever doing 3. Such an attack
+                costs
+                gas and there is nothing to win directly. However, it could cause damage, if someone relies on the
+                transaction to go through. This field lets you set a deposit amount for step 1, and if the password is
+                not revealed, the claimer loses the deposit. This makes such DoS much more costly.<br>
+
+              </span>
+            </div>
+          </div>
+
+
+          <!-- hidden input: current chain -->
+          <input type="hidden" name="gChain" id="gChain" x-model="$store.gChain">
         </div>
+      </div>
+      <div class="grid-cols-2 mt-4 w-full text-center">
+
+
+
+        <div @click="deposit();" data-augmented-ui="all-hexangle-up border" class="reticle mx-auto align-middle mt-6">
+          <div class="align-middle my-auto center-xy text-6xl translate-y-20"> Send </div>
+        </div>
+        <div class="mx-auto h-24 w-24 rounded-full -translate-y-24"></div>
+
+      </div>
     </div>
 
     <!-- STASH SUCCESS TAB -->
@@ -365,38 +356,32 @@
 
     </div>
   </div>
-  </div>
 
 
-
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script>
-    document.addEventListener('alpine:init', () => {
-      Alpine.store('activeTab', 0)
+    const doodle = document.querySelector('css-doodle');
+    document.addEventListener("click", () => {
+      doodle.update();
     })
-  </script>
 
-  <script>
+    document.addEventListener('alpine:init', () => {
+      console.log('ALPINE INITIATED 🏔️');
+    })
+
     console.log(
       "%c  TRON  ",
       "font-size: 80px; background-color: blue; color: red;",
     );
   </script>
 
-  <!-- Javascript stuff -->
-  <script defer src="snake.js"></script>
 
-  <script defer src="ethers-5.2.umd.min.js"></script>
-  <script defer src="colors.js"></script>
-  <script defer src="crypto.js"></script>
-
-  <script>
-    const doodle = document.querySelector('css-doodle');
-
-    document.addEventListener("click", () => {
-      doodle.update();
-    })
-  </script>
+  <!-- Javascript stuff (order is important) -->
+  <!-- <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> -->
+  <!-- <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script> -->
+  <script src="ethers.js"></script>
+  <script src="alpine.js"></script>
+  <script src="snake.js" type="module"></script>
+  <script src="main.js" type="module"></script>
 
 </body>
 
