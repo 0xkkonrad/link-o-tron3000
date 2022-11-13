@@ -1,5 +1,5 @@
 // Data
-import { LOADING, contractAbi} from './data.js';
+// import { LOADING, contractAbi} from './data.js';
 console.log(contractAbi[0]);
 
 // console.log("INITIATING ALPINE");
@@ -33,16 +33,15 @@ if (idx && password && unlockDepositAmount && chain) {
   // set active tab to fetch
 
 } else {
-  Alpine.store("gChain", "tron-main");
+  Alpine.store("gChain", "tron-shasta");
 }
 
 
 // addresses
 // mumbai, goerli, polygon main, ethereum main
-// Alpine.store("gChain", "polygon-main");
 var contract_addresses = {
   "tron-main": "TFuxvZ1ucftuWWJrcqyiYRANDXVLYAutu2",
-  "tron-shasta": "",
+  "tron-shasta": "TWMTQf2DjJb8QJpbasRxsY7oVfgis4RnMq",
 };
 var chainIds = {
 };
@@ -88,6 +87,69 @@ window.debugList = [];
 // setting Alpine.js global variables. You can access these from anywhere
 Alpine.store("connected", false);
 Alpine.store("processingTransaction", false);
+
+
+function getTronweb(){
+  var obj = setInterval(async ()=>{
+      if (window.tronWeb && window.tronWeb.defaultAddress.base58) {
+          clearInterval(obj)
+          console.log("Tronweb is ready")
+          console.log(window.tronWeb.defaultAddress.base58)
+          return window.tronWeb
+      }
+  }, 10)
+}
+
+
+async function depositToContract() {
+
+  // get depositAmount and depositPassword
+  let depositAmount = document.getElementById("depositAmount").value;
+  let depositPassword = document.getElementById("depositPassword").value;
+  console.log("depositAmount: " + depositAmount, "depositPassword: " + depositPassword);
+
+
+  // if depositAmount is 0 or empty, return
+  if (depositAmount == 0 || depositAmount == "") {
+    alert("Please enter a deposit amount");
+    return;
+  }
+  // if depositPassword is empty, set one from random chars and display it on the page
+  if (depositPassword == "") {
+    depositPassword = Math.random().toString(36).slice(-259);
+    document.getElementById("depositPassword").value = depositPassword;
+  }
+  // if unlockDepositAmount is empty, set it to 0
+  var unlockDepositAmount = document.getElementById("unlockDepositAmount").value;
+  if (unlockDepositAmount == "") {
+    unlockDepositAmount = 0;
+  }
+
+
+  // call payable contrct function
+  // depositEther(bytes32 _hashedPassword, uint256 _unlockDepositAmount)
+  // var hashedPassword = ethers.utils.keccak256(depositPassword);
+
+  var hashedPassword = ethers.utils.id(depositPassword);
+  // var value = ethers.utils.parseEther(depositAmount);
+  var value = window.tronWeb.toSun(depositAmount);
+  
+  var contractAddress = contract_addresses[Alpine.store("gChain")];
+  var contractAbi = contractAbi;
+
+  // use tronweb to call contract
+  var tronWeb = window.tronWeb
+  console.log("tronWeb: ", tronWeb)
+  var contract = await tronWeb.contract().at(contractAddress);
+  console.log("contract: ", contract);
+  var result = await contract.depositEther(hashedPassword, value).send({
+    shouldPollResponse: true,
+    callValue: value,
+  });
+  console.log(result);
+  
+}
+
 
 async function switchTogChain() {
   await addChain();

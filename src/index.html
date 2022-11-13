@@ -93,8 +93,8 @@
         </div>
         <div class="relative p-2 text-xl" data-augmented-ui="tl-clip tr-2-clip br-clip both">
           <select class="border-transparent bg-transparent pt-4 pl-2 pr-7" x-model:value="$store.gChain">
-            <option class="bg-black" value="tron">TRON Mainnet</option>
-            <option class="bg-black" value="shasta">TRON Shasta</option>
+            <option class="bg-black" value="tron-main">TRON Mainnet</option>
+            <option class="bg-black" value="tron-shasta">TRON Shasta</option>
           </select>
         </div>
 
@@ -157,16 +157,15 @@
           <input type="hidden" name="gChain" id="gChain" x-model="$store.gChain">
         </div>
       </div>
+
+      <!-- BUTTON -->
       <div class="grid-cols-2 mt-4 w-full text-center">
-
-
-
         <div @click="deposit();" data-augmented-ui="all-hexangle-up border" class="reticle mx-auto align-middle mt-6">
           <div class="align-middle my-auto center-xy text-6xl translate-y-20"> Send </div>
         </div>
         <div class="mx-auto h-24 w-24 rounded-full -translate-y-24"></div>
-
       </div>
+
     </div>
 
     <!-- STASH SUCCESS TAB -->
@@ -356,13 +355,14 @@
 
     </div>
   </div>
-
-
-  <script>
+<!-- <script>
     const doodle = document.querySelector('css-doodle');
     document.addEventListener("click", () => {
       doodle.update();
     })
+  </script> -->
+
+  <script>
 
     document.addEventListener('alpine:init', () => {
       console.log('ALPINE INITIATED 🏔️');
@@ -379,9 +379,12 @@
   <!-- <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> -->
   <!-- <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script> -->
   <script src="ethers.js"></script>
+  <!-- We use tronweb npm package instead of ethers/web3 -->
+  <script src="tronweb.js"></script>
   <script src="alpine.js"></script>
-  <script src="snake.js" type="module"></script>
-  <script src="main.js" type="module"></script>
+  <script src="snake.js" type="text/javascript"></script>
+  <script src="data.js" type="text/javascript"></script>
+  <script src="main.js" type="text/javascript"></script>
 
 </body>
 

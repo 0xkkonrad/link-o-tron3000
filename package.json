@@ -32,6 +32,7 @@
   "dependencies": {
     "alpinejs": "^3.10.5",
     "augmented-ui": "^2.0.0",
-    "ethers": "^5.7.2"
+    "ethers": "^5.7.2",
+    "tronweb": "^4.4.0"
   }
 }
