@@ -4,8 +4,8 @@
   "description": "link o tron 3000",
   "main": "index.js",
   "scripts": {
-    "build-css": "npx tailwindcss -i ./src/style.css -o ./src/bundle.css",
-    "build-css-forever": "npx tailwindcss -i ./src/style.css -o ./src/bundle.css --watch",
+    "build-css": "npx tailwindcss -i ./src/style.css -o ./src/output.css",
+    "build-css-forever": "npx tailwindcss -i ./src/style.css -o ./src/output.css --watch",
     "build-webpack": "npx webpack --config webpack.config.js",
     "build-old": "npm run build-css && npm run build-webpack && cp -r ./src/index.html ./dist/index.html && cp -r ./src/main.js ./dist/main.js",
     "build": "npm run build-css && cp -r ./src/* ./dist/"
