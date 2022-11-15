@@ -25,15 +25,19 @@ var chain = urlParams.get('chain');
 console.log("URL PARAMS: idx: " + idx, "password: " + password + "chain: " + chain);
 // if not empty, set fetchPassphrase and fetchDepositIdx in document
 if (idx && password && unlockDepositAmount && chain) {
+  console.log("ALL PARAMS ARE SET");
   document.getElementById("fetchPassphrase").value = password;
   document.getElementById("fetchDepositIndex").value = idx;
   document.getElementById("fetchUnlockDepositAmount").value = unlockDepositAmount;
   document.getElementById("fetchChain").value = chain;
   Alpine.store("gChain", chain);
   // set active tab to fetch
+  Alpine.store("activeTab", 1);
 
 } else {
   Alpine.store("gChain", "tron-shasta");
+  // active tab
+  Alpine.store('activeTab', 0);
 }
 
 
@@ -55,10 +59,10 @@ Alpine.store("contractAddress", contract_addresses[Alpine.store("gChain")]);
 Alpine.store("contractAbi", contractAbi); // defined in abi.js
 
 // deposit
-Alpine.store("depositButtonText", 'Stash');
+Alpine.store("depositButtonText", 'Send');
 
 // withdraw
-Alpine.store("withdrawButtonText", 'Fetch');
+Alpine.store("withdrawButtonText", 'Claim');
 
 
 // deposit Success
@@ -75,8 +79,6 @@ Alpine.store("withdrawSuccessAmount", 0);
 Alpine.store("withdrawSuccessTx", 0);
 Alpine.store("withdrawSuccessLink", "");
 
-// active tab
-Alpine.store('activeTab', 0);
 
 
 // global debugList variable
@@ -101,113 +103,101 @@ function getTronweb(){
 }
 
 
-async function depositToContract() {
+// async function depositToContract() {
 
-  // get depositAmount and depositPassword
-  let depositAmount = document.getElementById("depositAmount").value;
-  let depositPassword = document.getElementById("depositPassword").value;
-  console.log("depositAmount: " + depositAmount, "depositPassword: " + depositPassword);
-
-
-  // if depositAmount is 0 or empty, return
-  if (depositAmount == 0 || depositAmount == "") {
-    alert("Please enter a deposit amount");
-    return;
-  }
-  // if depositPassword is empty, set one from random chars and display it on the page
-  if (depositPassword == "") {
-    depositPassword = Math.random().toString(36).slice(-259);
-    document.getElementById("depositPassword").value = depositPassword;
-  }
-  // if unlockDepositAmount is empty, set it to 0
-  var unlockDepositAmount = document.getElementById("unlockDepositAmount").value;
-  if (unlockDepositAmount == "") {
-    unlockDepositAmount = 0;
-  }
+//   // get depositAmount and depositPassword
+//   let depositAmount = document.getElementById("depositAmount").value;
+//   let depositPassword = document.getElementById("depositPassword").value;
+//   console.log("depositAmount: " + depositAmount, "depositPassword: " + depositPassword);
 
 
-  // call payable contrct function
-  // depositEther(bytes32 _hashedPassword, uint256 _unlockDepositAmount)
-  // var hashedPassword = ethers.utils.keccak256(depositPassword);
+//   // if depositAmount is 0 or empty, return
+//   if (depositAmount == 0 || depositAmount == "") {
+//     alert("Please enter a deposit amount");
+//     return;
+//   }
+//   // if depositPassword is empty, set one from random chars and display it on the page
+//   if (depositPassword == "") {
+//     depositPassword = Math.random().toString(36).slice(-259);
+//     document.getElementById("depositPassword").value = depositPassword;
+//   }
+//   // if unlockDepositAmount is empty, set it to 0
+//   var unlockDepositAmount = document.getElementById("unlockDepositAmount").value;
+//   if (unlockDepositAmount == "") {
+//     unlockDepositAmount = 0;
+//   }
 
-  var hashedPassword = ethers.utils.id(depositPassword);
-  // var value = ethers.utils.parseEther(depositAmount);
-  var value = window.tronWeb.toSun(depositAmount);
+
+//   // call payable contrct function
+//   // depositEther(bytes32 _hashedPassword, uint256 _unlockDepositAmount)
+//   // var hashedPassword = ethers.utils.keccak256(depositPassword);
+
+//   var hashedPassword = ethers.utils.id(depositPassword);
+//   // var value = ethers.utils.parseEther(depositAmount);
+//   var value = window.tronWeb.toSun(depositAmount);
   
-  var contractAddress = contract_addresses[Alpine.store("gChain")];
-  var contractAbi = contractAbi;
+//   var contractAddress = contract_addresses[Alpine.store("gChain")];
+//   var contractAbi = contractAbi;
 
-  // use tronweb to call contract
-  var tronWeb = window.tronWeb
-  console.log("tronWeb: ", tronWeb)
-  var contract = await tronWeb.contract().at(contractAddress);
-  console.log("contract: ", contract);
-  var result = await contract.depositEther(hashedPassword, value).send({
-    shouldPollResponse: true,
-    callValue: value,
-  });
-  console.log(result);
+//   // use tronweb to call contract
+//   var tronWeb = window.tronWeb
+//   console.log("tronWeb: ", tronWeb)
+//   var contract = await tronWeb.contract().at(contractAddress);
+//   console.log("contract: ", contract);
+//   var result = await contract.depositEther(hashedPassword, value).send({
+//     shouldPollResponse: false,
+//     callValue: value,
+//   });
+
+//   console.log(result);
   
-}
+// }
 
 
-async function switchTogChain() {
-  await addChain();
-  const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-  try {
-    await provider.send("wallet_switchEthereumChain", [
-      {
-        chainId: "0x" + chainIds[Alpine.store("gChain")].toString(16),
-      },
-    ]);
-  } catch (error) {
-    console.log(error);
-  }
-}
 
 
-async function connect() {
-  if (!window.ethereum) {
-    alert("Please install a TRON compatible wallet to use this dApp!");
-    return;
-  }
-  const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+// async function connect() {
+//   if (!window.ethereum) {
+//     alert("Please install a TRON compatible wallet to use this dApp!");
+//     return;
+//   }
+//   const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
 
-  // Prompt user for account connections
-  await provider.send("eth_requestAccounts", []);
-  const signer = provider.getSigner();
-  console.log("Account:", await signer.getAddress());
+//   // Prompt user for account connections
+//   await provider.send("eth_requestAccounts", []);
+//   const signer = provider.getSigner();
+//   console.log("Account:", await signer.getAddress());
 
 
-  // switch to gChain network
-  await switchTogChain();
+//   // switch to gChain network
+//   await switchTogChain();
 
-  // if current network is not gChain, return
-  if (await signer.getChainId() != chainIds[Alpine.store("gChain")]) {
-    alert("Please switch to " + Alpine.store("gChain") + " network");
-    return;
-  }
+//   // if current network is not gChain, return
+//   if (await signer.getChainId() != chainIds[Alpine.store("gChain")]) {
+//     alert("Please switch to " + Alpine.store("gChain") + " network");
+//     return;
+//   }
 
-  // set global variables
-  Alpine.store("connected", true);
-  Alpine.store("processingTransaction", false);
-  // set chain
-  let chainId = await provider.getNetwork().then((res) => res.chainId);
-  let chain = Object.keys(chainIds).find((key) => chainIds[key] === chainId);
-  Alpine.store("gChain", chain);
-  // set account
-  let account = await signer.getAddress();
-  Alpine.store("account", account);
-  console.log("Connected to " + chain + " with account " + account);
-  // set contract address
-  Alpine.store("contractAddress", contract_addresses[Alpine.store("gChain")]);
-  // set contract
-  contract = new ethers.Contract(
-    Alpine.store("contractAddress"),
-    Alpine.store("contractAbi"),
-    signer
-  );
-}
+//   // set global variables
+//   Alpine.store("connected", true);
+//   Alpine.store("processingTransaction", false);
+//   // set chain
+//   let chainId = await provider.getNetwork().then((res) => res.chainId);
+//   let chain = Object.keys(chainIds).find((key) => chainIds[key] === chainId);
+//   Alpine.store("gChain", chain);
+//   // set account
+//   let account = await signer.getAddress();
+//   Alpine.store("account", account);
+//   console.log("Connected to " + chain + " with account " + account);
+//   // set contract address
+//   Alpine.store("contractAddress", contract_addresses[Alpine.store("gChain")]);
+//   // set contract
+//   contract = new ethers.Contract(
+//     Alpine.store("contractAddress"),
+//     Alpine.store("contractAbi"),
+//     signer
+//   );
+// }
 
 async function deposit() {
   console.log(
@@ -215,18 +205,17 @@ async function deposit() {
     "font-size: 20px; background-color: purple; color: white;"
   );
 
-  // connect if not connected
-  if (!Alpine.store("connected")) {
-    await connect();
-  }
-
-  // check if connected
-  if (!Alpine.store("connected")) {
+  // get tronweb
+  try {
+    const tronWeb = window.tronWeb;
+    const accounts = await window.tronLink.request({method: 'tron_requestAccounts'})
+    console.log(accounts)
+    Alpine.store("connected", true);
+  } catch (error) {
+    alert("Please install a TRON compatible wallet to use this dApp!");
+    console.log(error);
     return;
   }
-
-  // ensure user is connected to correct network. If not, switch to correct network
-  await switchTogChain();
 
   // get depositAmount and depositPassword
   let depositAmount = document.getElementById("depositAmount").value;
@@ -256,20 +245,26 @@ async function deposit() {
   try {
     // Alpine.store('depositButtonText', 'Stashing...');
     Alpine.store('depositButtonText', LOADING);
-    // var hashedPassword = ethers.utils.keccak256(depositPassword);
     var hashedPassword = ethers.utils.id(depositPassword);
-    var value = ethers.utils.parseEther(depositAmount);
-    var tx = await contract.depositEther(hashedPassword, unlockDepositAmount, {
-      value: value,
-    });
-    console.log("value: " + value, "hashedPassword: " + hashedPassword);
-    // console.log("type of value: " + typeof value, "type of hashedPassword: " + typeof hashedPassword);
-    console.log("tx: " + tx);
+    let paymentAmountSun = tronWeb.toSun(depositAmount);
+
+    const contractAddress = contract_addresses[Alpine.store("gChain")];
+    let contract = await tronWeb.contract().at(contractAddress);
+    console.log("contract: ", contract);
+
+
+
     // set processingTransaction to true
     Alpine.store("processingTransaction", true);
-    // wait for tx to be mined
-    const receipt = await tx.wait();
-    debugList.push(receipt);
+
+    // make deposit
+    let txHash = await contract.depositEther(hashedPassword, paymentAmountSun).send({
+      shouldPollResponse: false,
+      callValue: paymentAmountSun,
+    });
+    console.log(txHash);
+
+
     // set processingTransaction to false
     Alpine.store("processingTransaction", false);
     // display success
@@ -277,29 +272,31 @@ async function deposit() {
 
     Alpine.store("depositSuccessAmount", depositAmount);
 
-    // get deposit idx from receipt (function return value)
-    // TODO: read up why tf this is not identical across chains
-    if (Alpine.store("gChain") == "goerli") {
-      var depositIdx = receipt.events[0].args[2]['_hex'];
-      console.log("depositIdx: " + depositIdx);
-    } else if (Alpine.store("gChain") == "polygon-main") {
-      var depositIdx = receipt.events[1].args[2]['_hex'];
-      console.log("depositIdx: " + depositIdx);
-    } else if (Alpine.store("gChain") == "moonbeam") {
-      var depositIdx = receipt.events[0].args[2]['_hex'];
-      console.log("depositIdx: " + depositIdx);
-    } else {
-      var depositIdx = receipt.events[0].args[2]['_hex'];
-      console.log("depositIdx: " + depositIdx);
-    }
+    // // get deposit idx from receipt (function return value)
+    // // TODO: read up why tf this is not identical across chains
+    // if (Alpine.store("gChain") == "goerli") {
+    //   var depositIdx = receipt.events[0].args[2]['_hex'];
+    //   console.log("depositIdx: " + depositIdx);
+    // } else if (Alpine.store("gChain") == "polygon-main") {
+    //   var depositIdx = receipt.events[1].args[2]['_hex'];
+    //   console.log("depositIdx: " + depositIdx);
+    // } else if (Alpine.store("gChain") == "moonbeam") {
+    //   var depositIdx = receipt.events[0].args[2]['_hex'];
+    //   console.log("depositIdx: " + depositIdx);
+    // } else {
+    //   var depositIdx = receipt.events[0].args[2]['_hex'];
+    //   console.log("depositIdx: " + depositIdx);
+    // }
+    // get deposit idx (tronweb doesnt even have receipt.... )
+    var depositIdx = 9;
 
 
     // hex to decimal
     depositIdx = parseInt(depositIdx, 16);
     Alpine.store("depositSuccessIdx", depositIdx);
     Alpine.store("depositSuccessPassword", depositPassword);
-    Alpine.store("depositSuccessTx", receipt.transactionHash);
-    Alpine.store("depositSuccessTxLink", blockExplorers[Alpine.store("gChain")] + "tx/" + receipt.transactionHash);
+    Alpine.store("depositSuccessTx", txHash);
+    Alpine.store("depositSuccessTxLink", blockExplorers[Alpine.store("gChain")] + "/#/transaction/" + txHash);
 
     // generate with current url and params idx=depositIdx&password=depositPassword&unlockDepositAmount=unlockDepositAmount&chain=gChain
     let url = new URL(window.location.href);
@@ -334,14 +331,6 @@ async function withdrawEtherPassword() {
   Alpine.store("processingTransaction", true);
   Alpine.store("withdrawButtonText", LOADING);
 
-  // connect if not connected
-  if (!Alpine.store("connected")) {
-    await connect();
-  }
-  // check if connected
-  if (!Alpine.store("connected")) {
-    return;
-  }
 
   // get depositIdx and depositPassword and unlockDepositAmount
   let depositIdx = document.getElementById("fetchDepositIndex").value;
@@ -371,21 +360,33 @@ async function withdrawEtherPassword() {
   try {
     // Alpine.store('fetchButtonText', 'Fetching...');
     Alpine.store('fetchButtonText', LOADING);
-    value = ethers.utils.parseEther(unlockDepositAmount);
-    var tx = await contract.openEtherDepositWindow(depositIdx, {
-      value: value,
+    // value = ethers.utils.parseEther(unlockDepositAmount);
+    var unlockDepositAmountValue = 0
+
+    contract = await tronWeb.contract().at(contract_addresses[Alpine.store("gChain")]);
+
+    // set processingTransaction to true
+    Alpine.store("processingTransaction", true);
+
+    // initiate timelock
+    let txHash = await contract.openEtherDepositWindow(depositIdx).send({
+      shouldPollResponse: false,
+      callValue: unlockDepositAmountValue,
     });
-    const receipt1 = await tx.wait();
-    debugList.push(receipt1);
+
+    console.log(txId);
 
     // after timelock window has been initiated, now submit password
 
     // 2. submit password 
     // call withdrawEtherPassword(uint256 _depositIdx, string memory _password)
+    var txId = await contract.withdrawEtherPassword(depositIdx, depositPassword).send({
+      shouldPollResponse: false,
+    });
 
-    var tx = await contract.withdrawEtherPassword(depositIdx, depositPassword);
-    const receipt2 = await tx.wait();
-    debugList.push(receipt2);
+    console.log(txId);
+
+
     // set processingTransaction to false
     Alpine.store("processingTransaction", false);
 
@@ -396,9 +397,9 @@ async function withdrawEtherPassword() {
     // withdrawAmount = parseInt(withdrawAmount, 16);
     // withdrawAmount = ethers.utils.formatEther(withdrawAmount);
     // Alpine.store("withdrawSuccessAmount", withdrawAmount);
-    Alpine.store("withdrawSuccessTx", receipt2.transactionHash);
+    Alpine.store("withdrawSuccessTx", txId);
     // create a link to block explorer
-    let blockUrl = blockExplorers[Alpine.store("gChain")] + "tx/" + receipt2.transactionHash;
+    let blockUrl = blockExplorers[Alpine.store("gChain")] + "/#/transaction/" + txId;
     Alpine.store("withdrawSuccessLink", blockUrl);
     Alpine.store('withdrawButtonText', 'wagmi');
   }
@@ -406,9 +407,9 @@ async function withdrawEtherPassword() {
     console.log(error);
     // set processingTransaction to false
     Alpine.store("processingTransaction", false);
-    Alpine.store("withdrawButtonText", "Fetch");
+    Alpine.store("withdrawButtonText", "Claim");
     // display error message
-    alert("Fetch failed");
+    alert("Claim failed");
     return;
   }
 }

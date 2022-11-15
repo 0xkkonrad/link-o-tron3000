@@ -27,12 +27,12 @@
     <div class="mt-8 gap-4 text-center p-6 flex-col flex lg:flex-row" style="grid-template-columns: 1fr 1fr auto; ">
 
       <div x-data @click="$store.activeTab = 0;" data-augmented-ui="tl-2-clip-x tr-clip br-clip-y bl-2-clip-x both"
-        class="w-full lg:w-1/2 hover:shadow-none hover:translate-x-2 hover:translate-y-2 gap-4 p-12 text-3xl ">
+        class="w-full lg:w-1/2 cursor-pointer hover:shadow-none hover:translate-x-2 hover:translate-y-2 gap-4 p-12 text-3xl ">
         Send
       </div>
 
       <div x-data @click="$store.activeTab = 1;" data-augmented-ui="  tl-clip tr-2-clip-x br-2-clip-x bl-clip-y both"
-        class="w-full lg:w-1/2 hover:shadow-none hover:translate-x-2 hover:translate-y-2 gap-4 text-center p-12 text-3xl ">
+        class="w-full lg:w-1/2 cursor-pointer hover:shadow-none hover:translate-x-2 hover:translate-y-2 gap-4 text-center p-12 text-3xl ">
         Claim
       </div>
 
@@ -160,17 +160,30 @@
       </div>
 
       <!-- BUTTON -->
-      <div class="grid-cols-2 mt-4 w-full text-center">
-        <div @click="deposit();" data-augmented-ui="all-hexangle-up border" class="reticle mx-auto align-middle mt-6">
-          <div class="align-middle my-auto center-xy text-6xl translate-y-20"> Send </div>
+      <!-- <div class="flex justify-center min-w-full">
+        <div class="flex flex-col min-w-full " x-cloak>
+          <button type="button" class="btn btn-primary btn-lg h-20 w-20" @click="deposit()"
+          data-augmented-ui="all-hexangle-up border" style="height: 260px !important; width: 260px !important;">
+            <span class="text-6xl">Send Tron</span>
+          </button>
         </div>
-        <div class="mx-auto h-24 w-24 rounded-full -translate-y-24"></div>
+      </div> -->
+
+      <!-- BUTTON -->
+      <!-- @konrad TODO: can't figure out why this button doesn't show now and i've wasted so much time lol - pls help? -->
+      <div class="grid-cols-2 mt-4 w-full text-center ">
+        <div @click="deposit(); console.log('clicked deposit button!');" 
+        style="height: 260px !important; width: 260px !important;"
+        data-augmented-ui="all-hexangle-up border" class="reticle mx-auto align-middle mt-6 cursor-pointer">
+          <div class="align-middle my-auto center-xy text-6xl translate-y-20" x-html="Alpine.store('depositButtonText')"> </div>
+        </div>
+        <div class="mx-auto h-24 w-24 rounded-full "></div>
       </div>
 
     </div>
 
     <!-- STASH SUCCESS TAB -->
-    <div class="window p-6 bg-color-firstthird" x-cloak x-show="$store.depositSuccess">
+    <div class="window p-6 bg-color-firstthird" data-augmented-ui="tl-clip tr-2-clip-y br-clip-x bl-rect-y both" x-cloak x-show="$store.depositSuccess">
       <div class="typewriter">
         <h1 class="lg:text-3xl text-xl">Deposit Confirmed!</h1>
       </div>
@@ -266,7 +279,7 @@
           <button x-html="$store.withdrawButtonText"
             class="text-3xl p-4 px-12 bg-color-secondthird hover:shadow-none window hover:translate-x-2 hover:translate-y-2 "
             @click="withdrawEtherPassword(); console.log('fetch clicked')">
-            Fetch </button>
+             </button>
         </div>
 
       </div>
